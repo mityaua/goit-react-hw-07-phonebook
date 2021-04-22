@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'; // Импорт функции комбайна редюсеров
 import { createReducer } from '@reduxjs/toolkit'; // Импорт функции создания редюсера
 
-// Импорт экшенов из контактов в редюсеры
 import {
   fetchContactsRequest,
   fetchContactsSuccess,
@@ -13,7 +12,7 @@ import {
   deleteContactSuccess,
   deleteContactError,
   changeFilter,
-} from './contacts-actions';
+} from './contacts-actions'; // Импорт экшенов из контактов в редюсеры
 
 // Создание редюсера для массива items в контактах (фетч всех контактов, добавление и удаление контакта)
 const items = createReducer([], {

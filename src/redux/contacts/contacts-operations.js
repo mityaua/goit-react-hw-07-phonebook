@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Импорт экшено из контактов в операции
 import {
   fetchContactsRequest,
   fetchContactsSuccess,
@@ -11,7 +10,7 @@ import {
   deleteContactRequest,
   deleteContactSuccess,
   deleteContactError,
-} from './contacts-actions';
+} from './contacts-actions'; // Импорт экшенов из контактов в операции
 
 axios.defaults.baseURL = 'http://localhost:2121';
 

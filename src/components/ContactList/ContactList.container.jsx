@@ -1,7 +1,7 @@
-import { connect } from 'react-redux'; // Импортируем коннект для глобального хранилища
-import { deleteContact } from '../../redux/contacts/contacts-operations'; // Импорт операцию удаления контакта
+import { connect } from 'react-redux'; // Импортирует коннект для глобального хранилища
+import { deleteContact } from '../../redux/contacts/contacts-operations'; // Импорт async операции удаления контакта
 
-import ContactList from './ContactList';
+import ContactList from './ContactList'; // Импорт компонента списка контактов для обёртки в коннекте
 
 // // Фильтрует и возвращает результат фильтра
 const getfilteredContacts = (allContacts, filter) => {
@@ -12,12 +12,12 @@ const getfilteredContacts = (allContacts, filter) => {
   );
 };
 
-// Из стейта в пропы + в контакты пишет результат функции фильтра
+// Из стейта в пропы компонента ContactList + в контакты пишет результат функции фильтра
 const mapStateToProps = ({ contacts: { items, filter } }) => ({
   contacts: getfilteredContacts(items, filter),
 });
 
-// Из стейта в пропы - метод удаления контакта
+// Из стейта в пропы компонента ContactList - метод удаления контакта
 const mapDispatchToProps = dispatch => ({
   onDeleteContact: id => dispatch(deleteContact(id)),
 });

@@ -5,11 +5,11 @@ import styles from './Filter.module.scss';
 // Принимает значение с поля фильтра и метод пишущий в стейт
 const Filter = ({ value, onChange }) => {
   return (
-    <div>
+    <div className={styles.filter}>
       <h2 className={styles.title}>Contacts</h2>
 
       <label className={styles.label}>
-        Find contacts by name
+        <span className={styles.label__text}>Find contacts by name</span>
         <input
           type="text"
           name="filter"

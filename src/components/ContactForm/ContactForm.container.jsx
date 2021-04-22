@@ -1,9 +1,9 @@
-// Можно перевести форму целиком на хуки без использования контейнера (отложено)
+// Можно перевести форму целиком на хуки (отложено до следующей темы)
 
 import { connect } from 'react-redux'; // Импорт функции коннекта к хранилищу
 import { addContact } from '../../redux/contacts/contacts-operations'; // Импорт операцию добавления контакта
 
-import ContactForm from './ContactForm';
+import ContactForm from './ContactForm'; // Импорт компонента формы для обёртки в коннекте
 
 // Из глобального стейта в пропы компонента ContactForm
 const mapStateToProps = state => ({

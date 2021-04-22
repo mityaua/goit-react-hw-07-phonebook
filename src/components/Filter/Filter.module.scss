@@ -1,3 +1,7 @@
+.filter {
+  margin-bottom: 15px;
+}
+
 .title {
   margin-bottom: 15px;
 
@@ -11,9 +15,11 @@
   flex-direction: column;
   align-items: center;
 
-  margin-bottom: 15px;
-
   color: #333232;
+
+  &__text {
+    margin-bottom: 5px;
+  }
 }
 
 .input {

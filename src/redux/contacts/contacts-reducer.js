@@ -1,19 +1,48 @@
 import { combineReducers } from 'redux'; // Импорт функции комбайна редюсеров
 import { createReducer } from '@reduxjs/toolkit'; // Импорт функции создания редюсера
 
-import actions from './contacts-actions'; // Импорт экшенов из контактов
+// Импорт экшенов из контактов в редюсеры
+import {
+  fetchContactsRequest,
+  fetchContactsSuccess,
+  fetchContactsError,
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
+  deleteContactRequest,
+  deleteContactSuccess,
+  deleteContactError,
+  changeFilter,
+} from './contacts-actions';
 
-// Создание редюсера для массива items в контактах (добавление контакта и удаление)
+// Создание редюсера для массива items в контактах (фетч всех контактов, добавление и удаление контакта)
 const items = createReducer([], {
-  [actions.addContact]: (state, { payload }) => [payload, ...state],
-  [actions.deleteContact]: (state, { payload }) =>
+  [fetchContactsSuccess]: (_, { payload }) =>
+    payload.sort((a, b) => a.name.localeCompare(b.name)),
+  [addContactSuccess]: (state, { payload }) => [payload, ...state],
+  [deleteContactSuccess]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
 });
 
 // Создание редюсера для фильтра в контактах
 const filter = createReducer('', {
-  [actions.changeFilter]: (_, { payload }) => payload,
+  [changeFilter]: (_, { payload }) => payload,
+});
+
+// Создание редюсера индикации загрузки
+const loading = createReducer(false, {
+  [addContactRequest]: () => true,
+  [addContactSuccess]: () => false,
+  [addContactError]: () => false,
+
+  [deleteContactRequest]: () => true,
+  [deleteContactSuccess]: () => false,
+  [deleteContactError]: () => false,
+
+  [fetchContactsRequest]: () => true,
+  [fetchContactsSuccess]: () => false,
+  [fetchContactsError]: () => false,
 });
 
 // Экспорт всех редюсеров через комбайн
-export default combineReducers({ items, filter });
+export default combineReducers({ items, filter, loading });

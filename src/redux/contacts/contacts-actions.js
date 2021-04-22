@@ -1,20 +1,27 @@
-import { createAction } from '@reduxjs/toolkit'; // Импорт функции создания экшена
-import { nanoid } from 'nanoid';
+import { createAction } from '@reduxjs/toolkit'; // Импорт функции создания экшена из тулкита
 
-// Создание экшена для добавления контакта: type + payload + Prepare Callback
-const addContact = createAction('contacts/add', (name, number) => ({
-  payload: {
-    id: nanoid(),
-    name,
-    number,
-  },
-}));
+// Создание экшенов для получаения списка контактов
+export const fetchContactsRequest = createAction(
+  'contacts/fetchContactsRequest',
+);
+export const fetchContactsSuccess = createAction(
+  'contacts/fetchContactsSuccess',
+);
+export const fetchContactsError = createAction('contacts/fetchContactsError');
 
-// Создание экшена для удаления контакта
-const deleteContact = createAction('contacts/delete');
+// Создание экшенов для добавления контакта
+export const addContactRequest = createAction('contacts/addContactsRequest');
+export const addContactSuccess = createAction('contacts/addContactSuccess');
+export const addContactError = createAction('contacts/addContactError');
+
+// Создание экшенов для удаления контакта
+export const deleteContactRequest = createAction(
+  'contacts/deleteContactsRequest',
+);
+export const deleteContactSuccess = createAction(
+  'contacts/deleteContactSuccess',
+);
+export const deleteContactError = createAction('contacts/deleteContactError');
 
 // Создание экшена для фильтра
-const changeFilter = createAction('contacts/change-filter');
-
-// eslint-disable-next-line
-export default { addContact, deleteContact, changeFilter };
+export const changeFilter = createAction('contacts/change-filter');

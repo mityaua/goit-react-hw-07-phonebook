@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'; // Импортируем коннект для глобального хранилища
-import contactsActions from '../../redux/contacts/contacts-actions'; // Импортируем экшны для диспатчинга
+import { deleteContact } from '../../redux/contacts/contacts-operations'; // Импорт операцию удаления контакта
 
 import ContactList from './ContactList';
 
@@ -17,9 +17,9 @@ const mapStateToProps = ({ contacts: { items, filter } }) => ({
   contacts: getfilteredContacts(items, filter),
 });
 
-// Из стейта в пропы - методы
+// Из стейта в пропы - метод удаления контакта
 const mapDispatchToProps = dispatch => ({
-  onDeleteContact: id => dispatch(contactsActions.deleteContact(id)),
+  onDeleteContact: id => dispatch(deleteContact(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

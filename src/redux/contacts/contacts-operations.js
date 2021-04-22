@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 import {
   fetchContactsRequest,
@@ -24,6 +25,7 @@ export const fetchContacts = () => async dispatch => {
     dispatch(fetchContactsSuccess(data));
   } catch (error) {
     dispatch(fetchContactsError(error));
+    toast.error(error.message);
   }
 };
 
@@ -39,6 +41,7 @@ export const addContact = (name, number) => async dispatch => {
     dispatch(addContactSuccess(data));
   } catch (error) {
     dispatch(addContactError(error));
+    toast.error(error.message);
   }
 };
 
@@ -52,5 +55,6 @@ export const deleteContact = id => async dispatch => {
     dispatch(deleteContactSuccess(id));
   } catch (error) {
     dispatch(deleteContactError(error));
+    toast.error(error.message);
   }
 };

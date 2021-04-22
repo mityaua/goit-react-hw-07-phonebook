@@ -30,6 +30,10 @@ const filter = createReducer('', {
 
 // Создание редюсера индикации загрузки
 const loading = createReducer(false, {
+  [fetchContactsRequest]: () => true,
+  [fetchContactsSuccess]: () => false,
+  [fetchContactsError]: () => false,
+
   [addContactRequest]: () => true,
   [addContactSuccess]: () => false,
   [addContactError]: () => false,
@@ -37,11 +41,23 @@ const loading = createReducer(false, {
   [deleteContactRequest]: () => true,
   [deleteContactSuccess]: () => false,
   [deleteContactError]: () => false,
+});
 
-  [fetchContactsRequest]: () => true,
-  [fetchContactsSuccess]: () => false,
-  [fetchContactsError]: () => false,
+// Создание редюсера обработки ошибок
+const error = createReducer(null, {
+  [fetchContactsError]: (_, { payload }) => payload,
+  [addContactError]: (_, { payload }) => payload,
+  [deleteContactError]: (_, { payload }) => payload,
+
+  [fetchContactsRequest]: () => null,
+  [fetchContactsSuccess]: () => null,
+
+  [addContactRequest]: () => null,
+  [addContactSuccess]: () => null,
+
+  [deleteContactRequest]: () => null,
+  [deleteContactSuccess]: () => null,
 });
 
 // Экспорт всех редюсеров через комбайн
-export default combineReducers({ items, filter, loading });
+export default combineReducers({ items, filter, loading, error });

@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import AddContactButton from '../AddContactButton';
 
 import styles from './ContactForm.module.scss';
-import 'react-toastify/dist/ReactToastify.css';
 
 const initialState = {
   name: '',
@@ -49,9 +48,7 @@ const ContactForm = ({ contacts, onSubmit }) => {
       return;
     }
 
-    toast.info(`${name} is already in contacts`, {
-      autoClose: 2500,
-    });
+    toast.info(`${name} is already in contacts`);
   };
 
   // Сброс полей формы (после отправки)
@@ -94,8 +91,6 @@ const ContactForm = ({ contacts, onSubmit }) => {
       </label>
 
       <AddContactButton />
-
-      <ToastContainer />
     </form>
   );
 };

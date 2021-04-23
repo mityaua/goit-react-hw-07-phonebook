@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { ToastContainer } from 'react-toastify';
 import Alert from '@material-ui/lab/Alert';
 
 import { fetchContacts } from './redux/contacts/contacts-operations'; // Импорт async операции запроса всех контактов
+import { getLoading, getError } from './redux/contacts/contacts-selectors'; // Импорт селекторов
 
 import Container from './components/Container';
 import Logo from './components/Logo';
@@ -14,17 +16,15 @@ import Loader from './components/Loader';
 
 import 'react-toastify/dist/ReactToastify.css';
 
+// Вариант без пропсов и без класса + хук для селекторов
 const App = () => {
-  const contacts = useSelector(state => state.contacts.items);
-  const isLoading = useSelector(state => state.contacts.loading);
-  const error = useSelector(state => state.contacts.error);
+  const isLoadingContacts = useSelector(state => getLoading(state));
+  const isError = useSelector(state => getError(state));
   const dispatch = useDispatch();
 
-  // При монтировании компонента вызываем операцию запроса всех компонентов
   useEffect(() => {
     dispatch(fetchContacts());
-    // eslint-disable-next-line
-  }, []);
+  }, [dispatch]);
 
   return (
     <Container>
@@ -32,12 +32,13 @@ const App = () => {
 
       <ContactForm />
 
-      {contacts.length >= 1 && <Filter />}
+      <Filter />
 
       <ContactList />
 
-      {isLoading && <Loader />}
-      {error && <Alert severity="error">{error.message}</Alert>}
+      {isLoadingContacts && <Loader />}
+
+      {isError && <Alert severity="error">{isError.message}</Alert>}
 
       <ToastContainer autoClose={2500} />
     </Container>
@@ -45,3 +46,39 @@ const App = () => {
 };
 
 export default App;
+
+// Вариант с пропсами через ToProps и без класса
+// const App = ({ isLoadingContacts, isError, fetchContactsOnMOunt }) => {
+//   useEffect(() => {
+//     fetchContactsOnMOunt();
+//   }, [fetchContactsOnMOunt]);
+
+//   return (
+//     <Container>
+//       <Logo />
+
+//       <ContactForm />
+
+//       <Filter />
+
+//       <ContactList />
+
+//       {isLoadingContacts && <Loader />}
+
+//       {isError && <Alert severity="error">{isError.message}</Alert>}
+
+//       <ToastContainer autoClose={2500} />
+//     </Container>
+//   );
+// };
+
+// const mapStateToProps = state => ({
+//   isLoadingContacts: getLoading(state),
+//   isError: getError(state),
+// });
+
+// const mapDispatchToProps = dispatch => ({
+//   fetchContactsOnMOunt: () => dispatch(fetchContacts()),
+// });
+
+// export default connect(mapStateToProps, mapDispatchToProps)(App);

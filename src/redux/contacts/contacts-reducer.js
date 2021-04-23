@@ -1,62 +1,51 @@
 import { combineReducers } from 'redux'; // Импорт функции комбайна редюсеров
 import { createReducer } from '@reduxjs/toolkit'; // Импорт функции создания редюсера
 
-import {
-  fetchContactsRequest,
-  fetchContactsSuccess,
-  fetchContactsError,
-  addContactRequest,
-  addContactSuccess,
-  addContactError,
-  deleteContactRequest,
-  deleteContactSuccess,
-  deleteContactError,
-  changeFilter,
-} from './contacts-actions'; // Импорт экшенов из контактов в редюсеры
+import actions from './contacts-actions'; // Импорт экшенов из контактов в редюсеры
 
 // Создание редюсера для массива items в контактах (фетч всех контактов, добавление и удаление контакта)
 const items = createReducer([], {
-  [fetchContactsSuccess]: (_, { payload }) =>
+  [actions.fetchContactsSuccess]: (_, { payload }) =>
     payload.sort((a, b) => a.name.localeCompare(b.name)),
-  [addContactSuccess]: (state, { payload }) => [payload, ...state],
-  [deleteContactSuccess]: (state, { payload }) =>
+  [actions.addContactSuccess]: (state, { payload }) => [payload, ...state],
+  [actions.deleteContactSuccess]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
 });
 
 // Создание редюсера для фильтра в контактах
 const filter = createReducer('', {
-  [changeFilter]: (_, { payload }) => payload,
+  [actions.changeFilter]: (_, { payload }) => payload,
 });
 
 // Создание редюсера индикации загрузки
 const loading = createReducer(false, {
-  [fetchContactsRequest]: () => true,
-  [fetchContactsSuccess]: () => false,
-  [fetchContactsError]: () => false,
+  [actions.fetchContactsRequest]: () => true,
+  [actions.fetchContactsSuccess]: () => false,
+  [actions.fetchContactsError]: () => false,
 
-  [addContactRequest]: () => true,
-  [addContactSuccess]: () => false,
-  [addContactError]: () => false,
+  [actions.addContactRequest]: () => true,
+  [actions.addContactSuccess]: () => false,
+  [actions.addContactError]: () => false,
 
-  [deleteContactRequest]: () => true,
-  [deleteContactSuccess]: () => false,
-  [deleteContactError]: () => false,
+  [actions.deleteContactRequest]: () => true,
+  [actions.deleteContactSuccess]: () => false,
+  [actions.deleteContactError]: () => false,
 });
 
 // Создание редюсера обработки ошибок
 const error = createReducer(null, {
-  [fetchContactsError]: (_, { payload }) => payload,
-  [addContactError]: (_, { payload }) => payload,
-  [deleteContactError]: (_, { payload }) => payload,
+  [actions.fetchContactsError]: (_, { payload }) => payload,
+  [actions.addContactError]: (_, { payload }) => payload,
+  [actions.deleteContactError]: (_, { payload }) => payload,
 
-  [fetchContactsRequest]: () => null,
-  [fetchContactsSuccess]: () => null,
+  [actions.fetchContactsRequest]: () => null,
+  [actions.fetchContactsSuccess]: () => null,
 
-  [addContactRequest]: () => null,
-  [addContactSuccess]: () => null,
+  [actions.addContactRequest]: () => null,
+  [actions.addContactSuccess]: () => null,
 
-  [deleteContactRequest]: () => null,
-  [deleteContactSuccess]: () => null,
+  [actions.deleteContactRequest]: () => null,
+  [actions.deleteContactSuccess]: () => null,
 });
 
 // Экспорт всех редюсеров через комбайн

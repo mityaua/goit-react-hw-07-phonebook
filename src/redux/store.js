@@ -9,7 +9,7 @@ import {
 } from 'redux-persist'; // Импорт функции персистеров и фикса консоли
 import logger from 'redux-logger'; // Импорт функции логгирования
 
-import contactsReducer from './contacts/contacts-reducer'; // Импорт редюсера по контактам
+import { contactsReducer } from './contacts'; // Импорт редюсера по контактам
 
 // Создание прослоек + логгер. Важен порядок!
 const middleware = [

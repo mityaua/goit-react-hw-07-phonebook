@@ -4,8 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import Alert from '@material-ui/lab/Alert';
 
-import { fetchContacts } from './redux/contacts/contacts-operations'; // Импорт async операции запроса всех контактов
-import { getLoading, getError } from './redux/contacts/contacts-selectors'; // Импорт селекторов
+import { contactsOperations, contactsSelectors } from './redux/contacts'; // Импорт async операции запроса всех контактов и селектора лоадера и ошибки
 
 import Container from './components/Container';
 import Logo from './components/Logo';
@@ -18,12 +17,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // Вариант без пропсов и без класса + хук для селекторов
 const App = () => {
-  const isLoadingContacts = useSelector(state => getLoading(state));
-  const isError = useSelector(state => getError(state));
+  const isLoadingContacts = useSelector(state =>
+    contactsSelectors.getLoading(state),
+  );
+  const isError = useSelector(state => contactsSelectors.getError(state));
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(contactsOperations.fetchContacts());
   }, [dispatch]);
 
   return (
@@ -73,12 +74,12 @@ export default App;
 // };
 
 // const mapStateToProps = state => ({
-//   isLoadingContacts: getLoading(state),
-//   isError: getError(state),
+//   isLoadingContacts: contactsSelectors.getLoading(state),
+//   isError: contactsSelectors.getError(state),
 // });
 
 // const mapDispatchToProps = dispatch => ({
-//   fetchContactsOnMOunt: () => dispatch(fetchContacts()),
+//   fetchContactsOnMount: () => dispatch(contactsOperations.fetchContacts()),
 // });
 
 // export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -10,18 +10,31 @@ export const fetchContactsSuccess = createAction(
 export const fetchContactsError = createAction('contacts/fetchContactsError');
 
 // Создание экшенов для добавления контакта
-export const addContactRequest = createAction('contacts/addContactsRequest');
-export const addContactSuccess = createAction('contacts/addContactSuccess');
-export const addContactError = createAction('contacts/addContactError');
+const addContactRequest = createAction('contacts/addContactsRequest');
+const addContactSuccess = createAction('contacts/addContactSuccess');
+const addContactError = createAction('contacts/addContactError');
 
 // Создание экшенов для удаления контакта
-export const deleteContactRequest = createAction(
-  'contacts/deleteContactsRequest',
-);
-export const deleteContactSuccess = createAction(
-  'contacts/deleteContactSuccess',
-);
-export const deleteContactError = createAction('contacts/deleteContactError');
+const deleteContactRequest = createAction('contacts/deleteContactsRequest');
+const deleteContactSuccess = createAction('contacts/deleteContactSuccess');
+const deleteContactError = createAction('contacts/deleteContactError');
 
 // Создание экшена для фильтра
-export const changeFilter = createAction('contacts/change-filter');
+const changeFilter = createAction('contacts/change-filter');
+
+// eslint-disable-next-line
+export default {
+  fetchContactsRequest,
+  fetchContactsSuccess,
+  fetchContactsError,
+
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
+
+  deleteContactRequest,
+  deleteContactSuccess,
+  deleteContactError,
+
+  changeFilter,
+};
